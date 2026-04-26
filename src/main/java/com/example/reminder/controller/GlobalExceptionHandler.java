@@ -25,11 +25,12 @@ public class GlobalExceptionHandler {
     return new ResponseEntity<>(errorDTO, HttpStatus.BAD_REQUEST);
   }
 
+  @ExceptionHandler(TaskNotFoundException.class)
   public ResponseEntity<ErrorDTO> handleTaskNotFoundException(TaskNotFoundException ex) {
     UUID taskNotFoundId = ex.getId();
     String errorMessage = String.format("Task with ID '%s' not found.", taskNotFoundId);
     var errorDTO = new ErrorDTO(errorMessage);
-    return new ResponseEntity<>(errorDTO, HttpStatus.BAD_REQUEST);
+    return new ResponseEntity<>(errorDTO, HttpStatus.NOT_FOUND);
   }
 
 
